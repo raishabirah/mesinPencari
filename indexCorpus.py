@@ -15,6 +15,7 @@ def index_txt_files(input_folder, output_file):
                     # Hapus semua tanda baca
                     text = text.translate(str.maketrans('', '', string.punctuation))
                     outfile.write(text)
+                    outfile.write('\n')
 
 def main():
     input_folder = 'index'

@@ -32,7 +32,7 @@ def is_valid_link(link):
     return re.match(pattern, link) is not None
 
 def main():
-    url = 'https://www.cnnindonesia.com/internasional/indeks/6'
+    url = 'https://www.cnnindonesia.com/internasional/indeks/6/4'
     links = get_links(url)
     random.shuffle(links)
 
