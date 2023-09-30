@@ -20,7 +20,7 @@ def save_article(link, session):
         soup = BeautifulSoup(response.text, 'html.parser')
         title = soup.find('title').text
         filename = re.sub(r'[\/:*?"<>|]', '', title) + '.html'
-        with open(os.path.join('corpus', filename), 'w', encoding='utf-8') as file:
+        with open(os.path.join('files', filename), 'w', encoding='utf-8') as file:
             file.write(response.text)
             return True
     else:
@@ -32,12 +32,12 @@ def is_valid_link(link):
     return re.match(pattern, link) is not None
 
 def main():
-    url = 'https://www.cnnindonesia.com/internasional/indeks/6/4'
+    url = 'https://www.cnnindonesia.com/internasional/indeks/6'
     links = get_links(url)
     random.shuffle(links)
 
-    if not os.path.exists('corpus'):
-        os.makedirs('corpus')
+    if not os.path.exists('files'):
+        os.makedirs('files')
 
     saved_count = 0
     with requests.Session() as session:
