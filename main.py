@@ -10,12 +10,12 @@ if __name__ == "__main__":
         documents = [doc.strip() for doc in f.readlines()]
 
     if algorithm_choice == "1":
-        query = input("Masukkan kata kunci: ")
+        query = input("Masukkan kata kunci: ").lower()
         print()
         # Gunakan pencarian TF-IDF
         tfidf_search(query, documents)
-    elif algorithm_choice ==    "2":
-        query = input("Masukkan kata kunci: ")
+    elif algorithm_choice == "2":
+        query = input("Masukkan kata kunci: ").lower()
         print()
         # Gunakan pencarian Dice Similarity
         dice_similarity_search(query, documents)
