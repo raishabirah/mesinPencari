@@ -1,15 +1,6 @@
-from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
 
 def dice_similarity_search(query, documents):
-    # Inisialisasi vectorizer
-    vectorizer = TfidfVectorizer()
-
-    # Hitung skor TF-IDF untuk setiap dokumen dalam korpus
-    tfidf_matrix = vectorizer.fit_transform(documents)
-
-    # Hitung skor TF-IDF untuk query
-    query_vector = vectorizer.transform([query])
 
     # Hitung skor dice untuk setiap dokumen
     dice_similarities = []
@@ -20,7 +11,7 @@ def dice_similarity_search(query, documents):
         total_terms = len(query.split()) + len(doc.split())
         dice_similarities.append(2 * common_terms / total_terms)
 
-    # Temukan semua dokumen yang mengandung kata kunci
+    # Cetak hasil pencarian
     found = False
     for doc_index, doc in enumerate(documents):
         if all(keyword in doc for keyword in query.split()):
@@ -31,7 +22,12 @@ def dice_similarity_search(query, documents):
     if found:
         for doc_index, doc in enumerate(documents):
             if all(keyword in doc for keyword in query.split()) and dice_similarities[doc_index] > 0:
-                print(f'Dokumen {doc_index + 1}, ', end='')
-                print(f'Skor: {round(dice_similarities[doc_index], 4)}')
+                term_positions = {}
+                for term in query.split():
+                    positions = [i for i, token in enumerate(doc.split()) if token == term]
+                    term_positions[term] = positions
+                for term, positions in term_positions.items():
+                    print(f'Dokumen {doc_index + 1}, index: {positions}')
+                    print(f'Skor: {round(dice_similarities[doc_index], 4)}')
     else:
         print("Tidak ada dokumen yang ditemukan.")
